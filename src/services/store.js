@@ -1,4 +1,6 @@
 import Participant from '../entities/participant';
+import Units from '../entities/units';
+
 
 class Store {
 
@@ -11,19 +13,30 @@ class Store {
 
     initStore(rawParticipants) {
         this.initParticipants(rawParticipants);
-        debugger;
+        this.initUnits();
     }
 
     initParticipants(rawParticipants) {
         let tempParticipant = rawParticipants.map(rawParticipant => new Participant(rawParticipant));
         this.participants = this.sliceOutdatedRegitrations(tempParticipant);
-        debugger
     }
 
     sliceOutdatedRegitrations(participants) {
         return participants.slice(0, 150);
     }
 
+    initUnits() {
+        const units = new Units(this.participants);
+        this.units = units.tribeUnits;
+        debugger
+    }
+
+    getParticipantByFullName(fullName) {
+        return this.participants.find(participant => participant.fullName === fullName);
+    }
+
 }
 
-export default new Store();
+const storeInstance = new Store();
+
+export default storeInstance;
