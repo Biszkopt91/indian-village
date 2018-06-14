@@ -10,14 +10,13 @@ function guid() {
 }
 
 export default class Participant {
-    
-
     constructor(participantRawObject) {
         this.id = guid();
         this.fullName = `${participantRawObject[columnsConfig.firstName]}_${participantRawObject[columnsConfig.lastName]}`.toLowerCase()
         this.partnerFullName = `${participantRawObject[columnsConfig.partnerFirstName] || ''}_${participantRawObject[columnsConfig.partnerLastName] || ''}`.toLowerCase()
         this.age = moment().diff(moment(participantRawObject[columnsConfig.birthDay], ['MM/DD/YYYY', 'YYYY-MM-DD']), 'years')
-        
+        this.sex = participantRawObject[columnsConfig.sex].toLowerCase();
+        this.isSigned = false;
         this.externalData = {...participantRawObject};
     }
 

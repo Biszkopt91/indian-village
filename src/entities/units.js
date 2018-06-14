@@ -4,6 +4,7 @@ export default class Units {
     constructor(participans) {
         this.tribeUnits = [];
         this.generateUnits(participans);
+        this.sortUnits();
     }
 
     findUnion(participantId) {
@@ -14,7 +15,18 @@ export default class Units {
         participants.forEach(participant => {
             this.addParticipant(participant);
         })
-        debugger
+    }
+
+    sortUnits() {
+        this.tribeUnits = this.tribeUnits.sort((itemA, itemB) => {
+            if (itemA.length > itemB.length) {
+                return -1;
+            } else if (itemA.length < itemB.length) {
+                return 1;
+            }
+
+            return 0;
+        });
     }
 
     addParticipant(participant) {
@@ -30,7 +42,6 @@ export default class Units {
             if (participantUnion && partnerUnion) {
                 if( (participantUnion !== partnerUnion)) {
                     const newUnion = [...participantUnion, ...partnerUnion];
-
                     this.tribeUnits.filter(union => (union !== participantUnion && union !== partnerUnion)).push(newUnion);
                 }
             } else if (participantUnion) {
