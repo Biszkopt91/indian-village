@@ -32,7 +32,7 @@ export default class Units {
     addParticipant(participant) {
 
         const partner = Store.getParticipantByFullName(participant.partnerFullName)
-        const partnerId = partner ? partner.id : null;;
+        const partnerId = partner ? partner.id : null;
         const participantId = participant.id;
         const participantUnion = this.findUnion(participantId);
 

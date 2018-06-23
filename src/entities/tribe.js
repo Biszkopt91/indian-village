@@ -14,7 +14,6 @@ export default class Tribe {
     }
 
     addMember(participant) {
-        console.log(participant)
         this.members.push(participant.id);
         this.strength += participant.age;
         this.increaseSex(participant.sex);
