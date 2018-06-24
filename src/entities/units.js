@@ -4,6 +4,7 @@ export default class Units {
     constructor(participans) {
         this.tribeUnits = [];
         this.generateUnits(participans);
+        this.unlockSingleUnits();
         this.sortUnits();
     }
 
@@ -15,6 +16,10 @@ export default class Units {
         participants.forEach(participant => {
             this.addParticipant(participant);
         })
+    }
+
+    unlockSingleUnits() {
+        this.tribeUnits.filter(unit => unit.length === 0).forEach(unit => Store.getParticipantById(unit[0]).isBlocked = false);
     }
 
     sortUnits() {
