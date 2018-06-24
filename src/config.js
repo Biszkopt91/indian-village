@@ -7,9 +7,17 @@ export const columnsConfig = {
     partnerLastName: "Nazwisko osoby z którą dziecko chce być w plemieniu",
     height: "Wzrost (cm)",
     sex: "Płeć",
+    movable: "Wolny",
+    tribe: "Plemię",
 }
 
 export const sexes = {
     male: "m",
     female: "k"
+}
+
+export const defaultTribeNames = {
+    2: ['Bizony', 'Mustangi'],
+    4: ['Czirokezi', 'Kruki', 'Lakota', 'Nawaho'],
+    6: ['Apacze', 'Arapaho', 'Czarne Stopy', 'Czejeni', 'Komancze', 'Szoszoni'],
 }

@@ -6,6 +6,15 @@ export default class Units {
         this.generateUnits(participans);
         this.unlockSingleUnits();
         this.sortUnits();
+        this.printKrzysUnit()
+    }
+
+    printKrzysUnit() {
+        const participant = Store.getParticipantByFullName('krzysztof_kumor');
+        
+        const unit = this.tribeUnits.find(unit => unit.some(id => id === participant.id));
+        debugger
+        console.log(unit.map(id => Store.getParticipantById(id)));
     }
 
     findUnion(participantId) {
@@ -19,7 +28,7 @@ export default class Units {
     }
 
     unlockSingleUnits() {
-        this.tribeUnits.filter(unit => unit.length === 0).forEach(unit => Store.getParticipantById(unit[0]).isBlocked = false);
+        this.tribeUnits.filter(unit => unit.length === 1).forEach(unit => Store.getParticipantById(unit[0]).isBlocked = false);
     }
 
     sortUnits() {

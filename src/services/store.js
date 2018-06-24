@@ -1,14 +1,22 @@
 import Participant from '../entities/participant';
 import Units from '../entities/units';
 import Tribes from '../entities/tribes';
+import { jsonToXlsx } from '../services/xlsx-parser';
 
 class Store {
 
     constructor() {
-        this.tribeNames = ['A', 'B', 'C', 'D', 'E', 'F'];
         this.participants = [];
         this.tribes = [];
         this.units = [];
+    }
+
+    setTribes(tribes) {
+        this.tribeNames = tribes;
+    }
+
+    setParticipantsCount(count) {
+        this.participantsCount = count;
     }
 
     initStore(rawParticipants) {
@@ -18,12 +26,16 @@ class Store {
     }
 
     initParticipants(rawParticipants) {
+        
         let tempParticipant = rawParticipants.map(rawParticipant => new Participant(rawParticipant));
+        tempParticipant.forEach((part, index) => {
+            console.log(index, part.partnerFullName)
+        })
         this.participants = this.sliceOutdatedRegitrations(tempParticipant);
     }
 
     sliceOutdatedRegitrations(participants) {
-        return participants.slice(0, 150);
+        return participants.slice(0, this.participantsCount);
     }
 
     initUnits() {
@@ -42,6 +54,22 @@ class Store {
     getParticipantById(id) {
         return this.participants.find(participant => participant.id === id);
     }
+
+    saveFile(index) {
+        const tribe = this.tribes[index];
+        const writeData = tribe.members
+                .map(memberId => this.getParticipantById(memberId))
+                .map(member => {
+                    return {
+                        ...member.externalData,
+                        "Plemię": tribe.name,
+                        "Wolny": member.isBlocked ? "Nie" : "Tak",
+                    }
+                })
+
+        jsonToXlsx(writeData, tribe.name);
+    }
+
 
 }
 

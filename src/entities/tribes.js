@@ -1,6 +1,6 @@
 import Tribe from './tribe';
 import Store from '../services/store';
-import { sexes } from '../config';
+import { sexes, columnsConfig } from '../config';
 
 export default class Tibes {
     constructor(tribesList, units, participantsList) {
