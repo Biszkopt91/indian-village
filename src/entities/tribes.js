@@ -24,7 +24,7 @@ export default class Tibes {
                 tribe.addMember(Store.getParticipantById(participantId));
             })
         })
-
+        console.log(units);
         console.log(this.tribes);
     }
 

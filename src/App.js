@@ -84,6 +84,7 @@ class App extends Component {
           </div>)
         })}
         <input type="file" onChange={this.filePicked} />
+        <button type="file" onChange={this.filePicked} >All</ button>
       </div>
     );
   }

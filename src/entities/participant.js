@@ -12,8 +12,8 @@ function guid() {
 export default class Participant {
     constructor(participantRawObject) {
         this.id = guid();
-        this.fullName = `${participantRawObject[columnsConfig.firstName]}_${participantRawObject[columnsConfig.lastName]}`.toLowerCase()
-        this.partnerFullName = `${participantRawObject[columnsConfig.partnerFirstName] || ''}_${participantRawObject[columnsConfig.partnerLastName] || ''}`.toLowerCase()
+        this.fullName = `${(participantRawObject[columnsConfig.firstName]).trim()}_${(participantRawObject[columnsConfig.lastName]).trim()}`.toLowerCase()
+        this.partnerFullName = `${(participantRawObject[columnsConfig.partnerFirstName] || '').trim()}_${(participantRawObject[columnsConfig.partnerLastName] || '').trim()}`.toLowerCase()
         this.age = moment().diff(moment(participantRawObject[columnsConfig.birthDay], ['MM/DD/YYYY', 'YYYY-MM-DD']), 'years')
         this.sex = participantRawObject[columnsConfig.sex].toLowerCase();
         this.isBlocked = true;

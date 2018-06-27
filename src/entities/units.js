@@ -3,18 +3,10 @@ import Store from '../services/store';
 export default class Units {
     constructor(participans) {
         this.tribeUnits = [];
+        this.counter = 0;
         this.generateUnits(participans);
         this.unlockSingleUnits();
         this.sortUnits();
-        this.printKrzysUnit()
-    }
-
-    printKrzysUnit() {
-        const participant = Store.getParticipantByFullName('krzysztof_kumor');
-        
-        const unit = this.tribeUnits.find(unit => unit.some(id => id === participant.id));
-        debugger
-        console.log(unit.map(id => Store.getParticipantById(id)));
     }
 
     findUnion(participantId) {
@@ -25,6 +17,7 @@ export default class Units {
         participants.forEach(participant => {
             this.addParticipant(participant);
         })
+        debugger;
     }
 
     unlockSingleUnits() {
@@ -43,20 +36,23 @@ export default class Units {
         });
     }
 
-    addParticipant(participant) {
+    addParticipant = (participant) => {
 
         const partner = Store.getParticipantByFullName(participant.partnerFullName)
         const partnerId = partner ? partner.id : null;
         const participantId = participant.id;
         const participantUnion = this.findUnion(participantId);
-
-        if (partnerId !== null) {
-            const participantUnion = this.findUnion(participantId);
+        if (partnerId !== null && partnerId !== undefined) {
             const partnerUnion = this.findUnion(partnerId);
+            if(participant.fullName === "łukasz_moskwa") {
+                this.counter = this.counter + 1;
+                debugger
+            }
             if (participantUnion && partnerUnion) {
                 if( (participantUnion !== partnerUnion)) {
                     const newUnion = [...participantUnion, ...partnerUnion];
-                    this.tribeUnits.filter(union => (union !== participantUnion && union !== partnerUnion)).push(newUnion);
+                    this.tribeUnits = this.tribeUnits.filter(union => (union !== participantUnion && union !== partnerUnion));
+                    this.tribeUnits.push(newUnion);
                 }
             } else if (participantUnion) {
                 participantUnion.push(partnerId)

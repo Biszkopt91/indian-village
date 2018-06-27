@@ -16,7 +16,7 @@ class Store {
     }
 
     setParticipantsCount(count) {
-        this.participantsCount = count;
+        this.participantsCount = parseInt(count);
     }
 
     initStore(rawParticipants) {
@@ -28,9 +28,6 @@ class Store {
     initParticipants(rawParticipants) {
         
         let tempParticipant = rawParticipants.map(rawParticipant => new Participant(rawParticipant));
-        tempParticipant.forEach((part, index) => {
-            console.log(index, part.partnerFullName)
-        })
         this.participants = this.sliceOutdatedRegitrations(tempParticipant);
     }
 
@@ -69,8 +66,6 @@ class Store {
 
         jsonToXlsx(writeData, tribe.name);
     }
-
-
 }
 
 const storeInstance = new Store();
